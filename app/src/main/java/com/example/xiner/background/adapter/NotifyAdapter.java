@@ -9,8 +9,14 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.xiner.background.R;
+import com.example.xiner.background.entity.Operation;
 
+
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by seald on 2017/12/6.
@@ -18,11 +24,11 @@ import java.util.ArrayList;
 
 public class NotifyAdapter extends BaseAdapter{
     Context context;
-    ArrayList<String> arrayList;
+    List<Operation> arrayList;
 
     private LayoutInflater mInflater;
 
-    public NotifyAdapter(Context context,ArrayList<String> arrayList){
+    public NotifyAdapter(Context context,List<Operation> arrayList){
         this.context = context;
         this.arrayList = arrayList;
         mInflater = LayoutInflater.from(context);
@@ -47,8 +53,17 @@ public class NotifyAdapter extends BaseAdapter{
     public View getView(int i, View view, ViewGroup viewGroup) {
         if(view == null){
             view = mInflater.inflate(R.layout.adapter_notify,null);
-            TextView textView = (TextView) view.findViewById(R.id.adapter_textnotify);
-            textView.setText(arrayList.get(i));
+            TextView modiUser = (TextView) view.findViewById(R.id.text_modifyuser);
+            TextView modiDate = (TextView) view.findViewById(R.id.text_modifydate);
+            modiUser.setText(arrayList.get(i).getReport().getUser().getUsername());
+
+            Timestamp ts = new Timestamp(Long.parseLong(arrayList.get(i).getTimestamp()));
+            String tsStr = "";
+            DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                tsStr = sdf.format(ts);
+
+                modiDate.setText(tsStr);
+            //textView.setText(arrayList.get(i));
         }
         return view;
     }

@@ -10,7 +10,7 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.example.xiner.background.MainActivity;
+import com.example.xiner.background.activity.MainActivity;
 import com.example.xiner.background.R;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
@@ -30,7 +30,7 @@ public class NotificationSurvice extends Service {
         try {
             //1.初始化socket.io，设置链接
 
-            mSocket = IO.socket("http://sealday.com:4000");
+            mSocket = IO.socket("http://sealday.com:3000");
 
         } catch (URISyntaxException e) {
             Log.v(TAG, "hello world1");

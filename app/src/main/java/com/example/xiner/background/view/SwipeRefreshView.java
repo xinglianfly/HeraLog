@@ -26,7 +26,7 @@ public class SwipeRefreshView extends SwipeRefreshLayout {
     private OnLoadMoreListener mListener;
     Context context;
     boolean isBottom = false;//看看list是不是到最底部了
-    boolean isLoadingMore = false;
+    boolean isLoadingMore = false;//看看现在是不是正在加载状态
 
 
     public SwipeRefreshView(Context context, AttributeSet attrs) {
