@@ -12,6 +12,17 @@ public class Operation implements Serializable{
     private String timestamp;
     private Report report;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    private User user;
+
+
     public String get_id() {
         return _id;
     }

@@ -41,6 +41,12 @@ public class Report  implements Serializable{
       return recordEdit;
    }
 
+
+
+   public void setRecordEdit(List<Editinfo> recordEdit) {
+      this.recordEdit = recordEdit;
+   }
+
    @Override
    public String toString() {
       return "Report{" +
@@ -48,21 +54,9 @@ public class Report  implements Serializable{
               ", entryAdd=" + entryAdd +
               ", entryRemove=" + entryRemove +
               ", recordEdit=" + recordEdit +
-              ", user=" + user +
               ", order='" + order + '\'' +
+              ", number='" + number + '\'' +
               '}';
-   }
-
-   public void setRecordEdit(List<Editinfo> recordEdit) {
-      this.recordEdit = recordEdit;
-   }
-
-   public User getUser() {
-      return user;
-   }
-
-   public void setUser(User user) {
-      this.user = user;
    }
 
    public String getOrder() {
@@ -75,8 +69,17 @@ public class Report  implements Serializable{
 
    private List<Materials> entryRemove;
    private List<Editinfo>recordEdit;
-   private User user;
    private String order;
+
+   public String getNumber() {
+      return number;
+   }
+
+   public void setNumber(String number) {
+      this.number = number;
+   }
+
+   private String number;
 
 
 

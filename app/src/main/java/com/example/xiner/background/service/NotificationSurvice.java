@@ -6,31 +6,42 @@ import android.app.Service;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.example.xiner.background.activity.EditInfoActivity;
 import com.example.xiner.background.activity.MainActivity;
 import com.example.xiner.background.R;
+import com.example.xiner.background.entity.ModifyRes;
+import com.example.xiner.background.entity.Operation;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class NotificationSurvice extends Service {
 
     private String TAG ="BACKGROUND";
+    Gson gson = new Gson();
+    Operation operation;
+
 
     private Socket mSocket;
     {
         try {
             //1.初始化socket.io，设置链接
 
-            mSocket = IO.socket("http://sealday.com:3000");
+            mSocket = IO.socket("http://sealday.com:4000");
 
         } catch (URISyntaxException e) {
             Log.v(TAG, "hello world1");
@@ -85,18 +96,19 @@ public class NotificationSurvice extends Service {
 
                     JSONObject data = (JSONObject) args[0];
                     Log.v(TAG, data.toString());
-                    String content;
-                    String from;
-                    try {
-                        content = data.getString("content");
-                        from = data.getString("from");
-                        Log.v(TAG, content + " is from" + from);
-                        showNotification(content,from,1);
 
-                    } catch (JSONException e) {
-                        Log.v(TAG, e.getMessage());
-                        return;
-                    }
+
+                     operation = gson.fromJson(data.toString(),Operation.class);
+
+
+                        Timestamp ts = new Timestamp(Long.parseLong(operation.getTimestamp()));
+                        String tsStr = "";
+                        DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                        tsStr = sdf.format(ts);
+
+                        showNotification(tsStr,operation.getUser().getUsername(),1);
+
+
                 }
             }).start();
 
@@ -114,7 +126,11 @@ public class NotificationSurvice extends Service {
                         .setContentTitle(contentTitle)
                         .setContentText(contentText);
 // Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(this, MainActivity.class);
+        Intent resultIntent = new Intent(this, EditInfoActivity.class);
+        resultIntent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("OPERATION",operation);
+        resultIntent.putExtras(bundle);
 
 // The stack builder object will contain an artificial back stack for the
 // started Activity.
@@ -122,7 +138,8 @@ public class NotificationSurvice extends Service {
 // your app to the Home screen.
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 // Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addParentStack(EditInfoActivity.class);
+     //   stackBuilder.addParentStack(EditInfoActivity.class);
 // Adds the Intent that starts the Activity to the top of the stack
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =

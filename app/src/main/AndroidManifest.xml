@@ -26,7 +26,11 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".activity.EditInfoActivity"></activity>
+        <activity android:name=".activity.EditInfoActivity"
+            android:parentActivityName=".activity.MainActivity"
+            >
+
+        </activity>
     </application>
 
 </manifest>

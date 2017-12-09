@@ -55,7 +55,7 @@ public class NotifyAdapter extends BaseAdapter{
             view = mInflater.inflate(R.layout.adapter_notify,null);
             TextView modiUser = (TextView) view.findViewById(R.id.text_modifyuser);
             TextView modiDate = (TextView) view.findViewById(R.id.text_modifydate);
-            modiUser.setText(arrayList.get(i).getReport().getUser().getUsername());
+            modiUser.setText(arrayList.get(i).getUser().getUsername());
 
             Timestamp ts = new Timestamp(Long.parseLong(arrayList.get(i).getTimestamp()));
             String tsStr = "";

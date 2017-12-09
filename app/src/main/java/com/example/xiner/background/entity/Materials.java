@@ -21,13 +21,12 @@ public class Materials implements Serializable{
 
     @Override
     public String toString() {
-        return "Materials{" +
-                "_id='" + _id + '\'' +
-                ", type='" + type + '\'' +
-                ", name='" + name + '\'' +
-                ", size='" + size + '\'' +
-                ", count=" + count +
-                '}';
+        return
+                "_id:" + _id + '\n' +
+                "type:" + type + '\n' +
+                "name:" + name + '\n' +
+                "size:" + size + '\n' +
+                " count:" + count ;
     }
 
     public String getType() {

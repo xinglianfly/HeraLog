@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     NotifyAdapter notifyAdapter;
     Handler handler;
     private final int RESPONSESUCCESS =100;
-    final   Message message = new Message();
+    Message message = new Message();
 
 
 
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 Log.v(TAG,res.getMessage());
                 List<Operation> operations =  res.getData().getOperations();
                 list.addAll(operations);
-
+                message = handler.obtainMessage();
                 message.what = RESPONSESUCCESS;
                 handler.sendMessage(message);
             }
@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -153,8 +154,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             public void onSuccess(ModifyRes res) {
                 Log.v(TAG,res.getMessage());
                 List<Operation> operations =  res.getData().getOperations();
+                list.clear();
                 list.addAll(operations);
-              
+                message = handler.obtainMessage();
                 message.what = RESPONSESUCCESS;
                 handler.sendMessage(message);
             }
