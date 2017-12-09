@@ -11,7 +11,16 @@ import java.util.List;
 
 public class Editinfo  implements Serializable{
     private List<String>path;
-    private String old;
+
+    public Object getOld() {
+        return old;
+    }
+
+    public void setOld(Object old) {
+        this.old = old;
+    }
+
+    private Object old;
 
     public List<String> getPath() {
         return path;
@@ -21,13 +30,7 @@ public class Editinfo  implements Serializable{
         this.path = path;
     }
 
-    public String getOld() {
-        return old;
-    }
 
-    public void setOld(String old) {
-        this.old = old;
-    }
 
 
     @Override

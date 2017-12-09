@@ -51,7 +51,7 @@ public class recordEditGrid extends BaseAdapter {
                 editname.setText(editinfos.get(i).getPath().toString());
 
             }else if (i%3==1){
-                editname.setText(editinfos.get(i).getOld());
+                editname.setText(editinfos.get(i).getOld().toString());
             }else {
                 editname.setText(editinfos.get(i).getNew().toString());
             }

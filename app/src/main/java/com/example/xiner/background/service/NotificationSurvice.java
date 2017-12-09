@@ -12,9 +12,9 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.example.xiner.background.activity.EditInfoActivity;
-import com.example.xiner.background.activity.MainActivity;
+
 import com.example.xiner.background.R;
-import com.example.xiner.background.entity.ModifyRes;
+
 import com.example.xiner.background.entity.Operation;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
@@ -34,6 +34,7 @@ public class NotificationSurvice extends Service {
     private String TAG ="BACKGROUND";
     Gson gson = new Gson();
     Operation operation;
+    int notifyID=0;
 
 
     private Socket mSocket;
@@ -106,7 +107,7 @@ public class NotificationSurvice extends Service {
                         DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                         tsStr = sdf.format(ts);
 
-                        showNotification(tsStr,operation.getUser().getUsername(),1);
+                        showNotification(operation.getUser().getUsername()+" 编辑了订单号 "+operation.getReport().getNumber(),tsStr,notifyID);
 
 
                 }
@@ -155,6 +156,7 @@ public class NotificationSurvice extends Service {
 // notification. For example, to cancel the notification, you can pass its ID
 // number to NotificationManager.cancel().
         mNotificationManager.notify(notificationId, mBuilder.build());
+        notifyID++;
 
     }
 

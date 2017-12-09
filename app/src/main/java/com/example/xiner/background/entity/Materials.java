@@ -22,11 +22,10 @@ public class Materials implements Serializable{
     @Override
     public String toString() {
         return
-                "_id:" + _id + '\n' +
-                "type:" + type + '\n' +
-                "name:" + name + '\n' +
-                "size:" + size + '\n' +
-                " count:" + count ;
+                "类型:" + type + '\n' +
+                "名称:" + name + '\n' +
+                "规格:" + size + '\n' +
+                " 数量:" + count ;
     }
 
     public String getType() {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,22 +7,35 @@
     android:orientation="vertical"
     tools:context="com.example.xiner.background.activity.EditInfoActivity">
 
-    <RelativeLayout
-
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/text_infodata"
+            android:textSize="15dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/text_infouser"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:id="@+id/text_infouser"
+            android:textSize="15dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/text_infodata"
+            android:layout_gravity="right"
             />
-    </RelativeLayout>
+    </LinearLayout>
 
     <!--<LinearLayout-->
         <!--android:id="@+id/l_recordEdit"-->
@@ -33,10 +46,15 @@
     <!--</LinearLayout>-->
 
     <TextView
-        android:layout_width="wrap_content"
+
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:id="@+id/text_head"
-        android:text="recordEdit"
+        android:visibility="gone"
+        android:textSize="20dp"
+        android:padding="10dp"
+        android:text="表头修改"
         />
 
     <!--<RelativeLayout-->
@@ -69,17 +87,24 @@
 
     </LinearLayout>
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/table_recordedit"
-        >
-    </TableLayout>
+    <!--<TableLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/table_recordedit"-->
+        <!--&gt;-->
+    <!--</TableLayout>-->
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/text_entryedit"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="entryEdit"
+        android:visibility="gone"
+        android:gravity="center"
+
+        android:textSize="20dp"
+        android:padding="10dp"
+        android:text="条目变更"
+
         />
     <LinearLayout
         android:id="@+id/ll_entryedit"
@@ -90,9 +115,15 @@
     </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/text_entryadd"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="entryAdd"
+        android:visibility="gone"
+        android:textSize="20dp"
+        android:padding="10dp"
+        android:gravity="center"
+
+        android:text="条目增加"
         />
     <LinearLayout
         android:id="@+id/ll_entryadd"
@@ -103,9 +134,15 @@
     </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/text_entryremove"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="editRemove"
+        android:visibility="gone"
+        android:textSize="20dp"
+        android:padding="10dp"
+        android:gravity="center"
+
+        android:text="条目删除"
         />
     <LinearLayout
         android:id="@+id/ll_entryremove"
@@ -122,6 +159,6 @@
 
     <!--</GridView >-->
 
+    </LinearLayout>
 
-
-</LinearLayout>
+</ScrollView>
