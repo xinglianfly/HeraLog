@@ -77,7 +77,6 @@ public class SwipeRefreshView extends SwipeRefreshLayout {
                                 if (mListener != null) {
                                     // 设置加载状态，让布局显示出来
 
-                                    Toast.makeText(context,"onScrollStateChanged",Toast.LENGTH_SHORT).show();
 
                                     setLoading(true);
                                     mListener.loadMore();

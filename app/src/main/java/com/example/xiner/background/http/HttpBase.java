@@ -56,4 +56,33 @@ public class HttpBase {
         });
     }
 
+
+    public void loadMorek(String url,final HttpInterface httpInterface){
+        Request request = new Request.Builder().url(baseUrl+url).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                httpInterface.onFailed();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                Headers responseHeaders = response.headers();
+                for (int i = 0; i < responseHeaders.size(); i++) {
+                    //Log.v(TAG,responseHeaders.name(i) + ": " + responseHeaders.value(i));
+                }
+                String jsonStr = response.body().string();
+                Log.v(TAG,jsonStr);
+                ModifyRes modifyRes = gson.fromJson(jsonStr,ModifyRes.class);
+                Log.v(TAG,"LoadMore"+modifyRes.toString());
+                Log.v(TAG,"size is"+modifyRes.getData().getOperations().size()+"");
+
+                httpInterface.onSuccess(modifyRes);
+            }
+        });
+    }
+
 }

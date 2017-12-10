@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     NotifyAdapter notifyAdapter;
     Handler handler;
     private final int RESPONSESUCCESS =100;
+    private final int RESPONSELOADMORESUCCESS =102;
     Message message = new Message();
 
 
@@ -65,12 +66,19 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     case RESPONSESUCCESS:
                         notifyAdapter.notifyDataSetChanged();
                         swipeRefreshLayout.setRefreshing(false);
+
                         Toast.makeText(MainActivity.this,"加载成功",Toast.LENGTH_SHORT).show();
 
                         break;
                     case RESPONSEFAILED:
                         swipeRefreshLayout.setRefreshing(false);
                         Toast.makeText(MainActivity.this,"加载失败",Toast.LENGTH_SHORT).show();
+                        break;
+                    case RESPONSELOADMORESUCCESS:
+                        notifyAdapter.notifyDataSetChanged();
+                        swipeRefreshLayout.setLoading(false);
+                        Toast.makeText(MainActivity.this,"加载成功",Toast.LENGTH_SHORT).show();
+                        break;
 
                 }
 
@@ -175,16 +183,23 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     @Override
     public void loadMore() {
-        Toast.makeText(this,"loadMore",Toast.LENGTH_SHORT).show();
 
-        new Handler().postDelayed(new Runnable() {
+        base.loadMorek("api/operation/next_k?id=" + list.get(list.size() - 1).get_id(), new HttpInterface() {
             @Override
-            public void run() {
-                swipeRefreshLayout.setLoading(false);
-
+            public void onSuccess(ModifyRes res) {
+                List<Operation> operations = res.getData().getOperations();
+                list.addAll(operations);
+                message = handler.obtainMessage();
+                message.what = RESPONSELOADMORESUCCESS;
+                handler.sendMessage(message);
             }
-        },3000);
 
+            @Override
+            public void onFailed() {
+                message.what = RESPONSEFAILED;
+                handler.sendMessage(message);
+            }
+        });
     }
 
     @Override
